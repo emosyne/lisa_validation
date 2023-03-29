@@ -2,7 +2,7 @@ process R_split_lists {
     // debug true
     container 'emosyne/r_docker:1.96'
     label 'process_high'
-    tag "${cohort}_${ENH_list}"
+    tag "${cohort}_${ENH_list}_${EPWAS_model}"
     cache "lenient"
     errorStrategy 'ignore'
     
@@ -11,12 +11,13 @@ process R_split_lists {
     //[celso, celso_GWAS_QC.gz, NEURAL_8k_GRB_significant_EPs, 
         // celso_NEURAL_8k_GRB_significant_EPs_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, celso_NEURAL_8k_GRB_significant_EPs_PGC__noclump_residual_GWAS_compartment.tsv.gz, celso_PGC_clumped_SNPs.clumped]
     tuple val(cohort), path (LOO_GWAS_QC),  val(ENH_list), \
-        path(noclump_TS_ENH_GWAS_compartment),  path(noclump_residual_GWAS_compartment),  path(clumped_SNPs), val(multiplier)
+        path(noclump_TS_ENH_GWAS_compartment),  path(noclump_residual_GWAS_compartment),  path(clumped_SNPs), val(EPWAS_model),\
+        val(multiplier)
     each path(EP_ES_gene_brain_exp)
 
 
     output:
-    tuple val(cohort), val(ENH_list), path("*_clumped_TS_ENH_GWAS_compartment.tsv.gz"), path("*_clumped_residual_GWAS_compartment.tsv.gz"), path("*_clumped_merged_GWAS.tsv.gz"), val(multiplier),      emit: partitioned
+    tuple val(cohort), val(ENH_list), path("*_clumped_TS_ENH_GWAS_compartment.tsv.gz"), path("*_clumped_residual_GWAS_compartment.tsv.gz"), path("*_clumped_merged_GWAS.tsv.gz"), val(multiplier),val(EPWAS_model),       emit: partitioned
     
     
     
