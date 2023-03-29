@@ -18,11 +18,12 @@ setDTthreads( round(nthreads))
 (ENH_bed_file = args[10])
 (LOO_GWAS = args[11])
 (cohort = args[12])
-
+(EPWAS_model = args[13])
+(ENH_EPwas = args[14])
 
 #OUTPUT
-TS_EPs_outfilename = paste0(cohort, "_", ENH_list, "_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz")
-residual_GWAS_compartment_outfilename = paste0(cohort, "_", ENH_list, "_PGC__noclump_residual_GWAS_compartment.tsv.gz")
+TS_EPs_outfilename = paste0(cohort, "_", EPWAS_model, "_", ENH_list, "_noclump_EPWAS.tsv.gz")
+residual_GWAS_compartment_outfilename = paste0(cohort, "_", EPWAS_model, "_", ENH_list, "_PGC__noclump_residual_GWAS_compartment.tsv.gz")
 
 
 
@@ -46,16 +47,26 @@ LOO_GWAS <- fread(file=LOO_GWAS, select = c("CHR", "SNP", "BP", "A1", "A2",  "P"
                                                end.field = "POS"))
 seqlevelsStyle(LOO_GWAS_hg19) <- "UCSC"
 
+# Read in the EPWAS
+(ENH_EPwas <- fread(file=ENH_EPwas, select = c("CHR", "SNP", "POS", "A1", "A2",  "P", "BETA")) %>%
+    dplyr::select(CHR,SNP,POS,A1,A2,P,BETA) %>%
+    mutate(OR=exp(BETA), BETA=NULL)
+    ) 
+(ENH_EPwas_GR = makeGRangesFromDataFrame(ENH_EPwas, keep.extra.columns = T,
+                                               seqnames.field = "CHR", start.field = "POS", 
+                                               end.field = "POS"))
+seqlevelsStyle(ENH_EPwas_GR) <- "UCSC"
+
 #subset GWAS by bed
 ################################################################################################################ CAN DIVIDE P BY VALUE TO PRIORITISE ENH SNPS ########################################################
-(full_GWAS_overlap_beds = subsetByOverlaps(x = LOO_GWAS_hg19, ranges = ENH_bed, type="any"))
-(full_GWAS_overlap_beds = as_tibble(full_GWAS_overlap_beds) %>%
+(ENH_EPwas_GR_overlap_ENH = subsetByOverlaps(x = ENH_EPwas_GR, ranges = ENH_bed, type="any"))
+(ENH_EPwas_GR_overlap_ENH = as_tibble(ENH_EPwas_GR_overlap_ENH) %>%
   dplyr::select(CHR=seqnames, SNP, POS=start, A1, A2, P, OR) %>%
   dplyr::mutate(P=P/pDivBy)
   ) 
 
 
-fwrite(x= full_GWAS_overlap_beds, file = TS_EPs_outfilename, sep="\t")
+fwrite(x= ENH_EPwas_GR_overlap_ENH, file = TS_EPs_outfilename, sep="\t")
 #R.utils::gzip(TS_EPs_outfilename,destname=paste0(TS_EPs_outfilename, ".gz"))
 
 

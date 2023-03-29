@@ -8,17 +8,18 @@ process R_prepare_lists_for_clump {
     
 
     input:
-    // [clz2a, clz2a_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/clz2a, 34k_neg, ./input/enh_bedfiles/34k_neg.bed]
+    // [xs234, xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, 
+        //REC, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_REC.tsv.gz] 
     tuple val(cohort), path (LOO_GWAS_QC), path(cohort_dir), val(ENH_list), path(ENH_bed)
-
+        val(EPWAS_model), path(ENH_EPwas)
 
     output:
-    tuple val(cohort), path (LOO_GWAS_QC),  val(ENH_list), path("*_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz"), path("*_PGC__noclump_residual_GWAS_compartment.tsv.gz"), emit: lists_before_clump
-
+    tuple val(cohort), path (LOO_GWAS_QC),  val(ENH_list), path("*_noclump_EPWAS.tsv.gz"), path("*_PGC__noclump_residual_GWAS_compartment.tsv.gz"), \
+        val(EPWAS_model),  emit: lists_before_clump
     
     script:
     """
-    R_prepare_lists_for_clump.R $task.cpus ${ENH_list} ${ENH_bed}  ${LOO_GWAS_QC} ${cohort}
+    R_prepare_lists_for_clump.R $task.cpus ${ENH_list} ${ENH_bed}  ${LOO_GWAS_QC} ${cohort}${EPWAS_model} ${ENH_EPwas}
     
    
     """

@@ -122,14 +122,16 @@ workflow lisa_validation {
         .set{cohort_GWAS_enh_list}
     
     cohort_GWAS_enh_list.view()
-    // [clz2a, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/18/c4dbd8ba39c2afa0c2ff01ebc6ea1e/clz2a_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/clz2a, 34k_neg, ./input/enh_bedfiles/34k_neg.bed]
+    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, REC, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_REC.tsv.gz]
+    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, DOM, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_DOM.tsv.gz]
+    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, ADD, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_ADD.tsv.gz]
     
-    // // BASE subsetting
-    // R_prepare_lists_for_clump (
-    //     // SUBSETS GWAS SNPS INTO ENH COMPARTMENT AND RESIDUAL COMPARTMENT.
-    //     // ########################### IN PREPARATION FOR CLUMPING, DIVIDE P VALUES FOR ENH SNPS BY X TO PRESERVE ENH SNPS ###########################
-    //     cohort_GWAS_enh_list
-    // )
+    // BASE subsetting
+    R_prepare_lists_for_clump (
+        // SUBSETS GWAS SNPS INTO ENH COMPARTMENT AND RESIDUAL COMPARTMENT.
+        // ########################### IN PREPARATION FOR CLUMPING, DIVIDE P VALUES FOR ENH SNPS BY X TO PRESERVE ENH SNPS ###########################
+        cohort_GWAS_enh_list
+    )
     
     
     // // R_prepare_lists_for_clump.out.lists_before_clump
