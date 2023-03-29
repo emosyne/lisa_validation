@@ -187,7 +187,6 @@ workflow lisa_validation {
     PRS_results = 
         PRSice_calculate_PRS_split_partitions.out.clumped_TS_ENH_GWAS_compartment_PRS
             .join(PRSice_calculate_PRS_split_partitions.out.clumped_residual_GWAS_compartment_PRS)
-            .join(PRSice_calculate_PRS_split_partitions.out.clumped_merged_GWAS_PRS)
             .join(PRSice_calculate_PRS_split_partitions.out.clumped_original_LOO_GWAS_PRS)
             .map { [it, "enh_ES", "enh_TS_tpm"].flatten() }
 
