@@ -134,11 +134,11 @@ workflow lisa_validation {
     )
     
     
-    // // R_prepare_lists_for_clump.out.lists_before_clump
-    // //     .combine(LD_reference)
-    // //     .view()
-    // // val(cohort), path (LOO_GWAS),  val(ENH_list), path("*_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz"), path("*_PGC__noclump_residual_GWAS_compartment.tsv.gz"), emit: lists_before_clump
-    // // [xirwt, daner_PGC_SCZ_w3_76_0518d_eur.noxirwt.gz, PsychENCODE_DER_03b_PFC_enhancers_18k, xirwt_PsychENCODE_DER_03b_PFC_enhancers_18k_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, xirwt_PsychENCODE_DER_03b_PFC_enhancers_18k_PGC__noclump_residual_GWAS_compartment.tsv.gz, /home/osimoe/project/.nextflow/assets/emosyne/LD_ref/EUR_phase3_autosomes_hg19.bed, /home/osimoe/project/.nextflow/assets/emosyne/LD_ref/EUR_phase3_autosomes_hg19.bim, /home/osimoe/project/.nextflow/assets/emosyne/LD_ref/EUR_phase3_autosomes_hg19.fam]
+    R_prepare_lists_for_clump.out.lists_before_clump
+        .combine(LD_reference)
+        .view()
+    
+    
 
 
     // PLINK_clump (

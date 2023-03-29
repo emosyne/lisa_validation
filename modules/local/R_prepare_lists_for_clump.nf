@@ -3,7 +3,7 @@ process R_prepare_lists_for_clump {
     container 'emosyne/r_docker:1.96'
     // container 'emosyne/simpler:1.1'
     label 'process_high'
-    tag "${cohort}_${ENH_list}"
+    tag "${cohort}_${ENH_list}_${EPWAS_model}"
     // cache "lenient"
     
 
@@ -19,7 +19,7 @@ process R_prepare_lists_for_clump {
     
     script:
     """
-    R_prepare_lists_for_clump.R $task.cpus ${ENH_list} ${ENH_bed}  ${LOO_GWAS_QC} ${cohort}${EPWAS_model} ${ENH_EPwas}
+    R_prepare_lists_for_clump.R $task.cpus ${ENH_list} ${ENH_bed}  ${LOO_GWAS_QC} ${cohort} ${EPWAS_model} ${ENH_EPwas}
     
    
     """
