@@ -121,7 +121,7 @@ workflow lisa_validation {
         .map { it.flatten() }
         .set{cohort_GWAS_enh_list}
     
-    cohort_GWAS_enh_list.view()
+    // cohort_GWAS_enh_list.view()
     // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, REC, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_REC.tsv.gz]
     // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, DOM, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_DOM.tsv.gz]
     // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, ADD, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_ADD.tsv.gz]
