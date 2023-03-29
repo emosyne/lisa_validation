@@ -1,6 +1,6 @@
 process PRSice_calculate_PRS_split_partitions {
     // debug true
-    tag "${cohort}_${ENH_list}_${EPWAS_model}"
+    tag "${ENH_list}_${CTthreshold}_${EPWAS_model}"
     label 'process_high'
     // label 'process_high_memory'
     // clusterOptions "--partition=shared_52c_384g"
