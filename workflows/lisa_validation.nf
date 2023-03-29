@@ -146,8 +146,9 @@ workflow lisa_validation {
         R_prepare_lists_for_clump.out.lists_before_clump
             .combine(LD_reference)
     )
-    PLINK_clump.out.clumped_SNPs_and_noclump_lists
-        .view()
+    // PLINK_clump.out.clumped_SNPs_and_noclump_lists
+    //     .view()
+    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_GWAS_QC_noclump.gz, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_DOM_Neural_significant_enh_noclump_EPWAS.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_DOM_Neural_significant_enh_PGC__noclump_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_Neural_significant_enh_PGC_clumped_SNPs.clumped, DOM]
 
 
     R_split_lists (

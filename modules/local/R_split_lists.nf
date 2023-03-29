@@ -8,8 +8,8 @@ process R_split_lists {
     
 
     input:
-    //[celso, celso_GWAS_QC.gz, NEURAL_8k_GRB_significant_EPs, 
-        // celso_NEURAL_8k_GRB_significant_EPs_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, celso_NEURAL_8k_GRB_significant_EPs_PGC__noclump_residual_GWAS_compartment.tsv.gz, celso_PGC_clumped_SNPs.clumped]
+    //[xs234, xs234_GWAS_QC_noclump.gz, Neural_significant_enh, 
+        // xs234_DOM_Neural_significant_enh_noclump_EPWAS.tsv.gz, xs234_DOM_Neural_significant_enh_PGC__noclump_residual_GWAS_compartment.tsv.gz, xs234_Neural_significant_enh_PGC_clumped_SNPs.clumped, DOM]
     tuple val(cohort), path (LOO_GWAS_QC),  val(ENH_list), \
         path(noclump_TS_ENH_GWAS_compartment),  path(noclump_residual_GWAS_compartment),  path(clumped_SNPs), val(EPWAS_model),\
         val(multiplier)
