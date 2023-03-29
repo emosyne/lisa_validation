@@ -134,9 +134,9 @@ workflow lisa_validation {
     )
     
     
-    R_prepare_lists_for_clump.out.lists_before_clump
-        .combine(LD_reference)
-        .view()
+    // R_prepare_lists_for_clump.out.lists_before_clump
+    //     .combine(LD_reference)
+    //     .view()
     //[xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_GWAS_QC_noclump.gz, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_ADD_Neural_significant_enh_noclump_EPWAS.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_ADD_Neural_significant_enh_PGC__noclump_residual_GWAS_compartment.tsv.gz, ADD, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bed, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bim, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.fam]
     
 
@@ -177,7 +177,7 @@ workflow lisa_validation {
     
     combined_splitlists_bedfile_QCeddata_LDdata.first().view()
     
-    
+
     // PRSice_calculate_PRS_split_partitions(
     //     combined_splitlists_bedfile_QCeddata_LDdata
     // )
