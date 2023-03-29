@@ -137,51 +137,46 @@ workflow lisa_validation {
     R_prepare_lists_for_clump.out.lists_before_clump
         .combine(LD_reference)
         .view()
-    
-    
-
-
-    // PLINK_clump (
-    //     //CLUMPING of enhancer-based SNP compartments together 
-    //     R_prepare_lists_for_clump.out.lists_before_clump
-    //         .combine(LD_reference)
-    // )
-    // // PLINK_clump.out.clumped_SNPs_and_noclump_lists
-    // //     .view()
-    // // // [celso, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/a1/90c446ff1933f735dc31ec989df901/celso_GWAS_QC.gz, NEURAL_8k_GRB_significant_EPs, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/a1/90c446ff1933f735dc31ec989df901/celso_NEURAL_8k_GRB_significant_EPs_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/a1/90c446ff1933f735dc31ec989df901/celso_NEURAL_8k_GRB_significant_EPs_PGC__noclump_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/a1/90c446ff1933f735dc31ec989df901/celso_PGC_clumped_SNPs.clumped]
-    // // // [celso, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/95/93aeae17e1e7b3b5df6b320b5c8064/celso_GWAS_QC.gz, notNeural_20k_100flank_noInternalOverlap, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/95/93aeae17e1e7b3b5df6b320b5c8064/celso_notNeural_20k_100flank_noInternalOverlap_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/95/93aeae17e1e7b3b5df6b320b5c8064/celso_notNeural_20k_100flank_noInternalOverlap_PGC__noclump_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/95/93aeae17e1e7b3b5df6b320b5c8064/celso_PGC_clumped_SNPs.clumped]
-    // // // [celso, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/54/65433ffc2328c2dec9fe2a5be9431c/celso_GWAS_QC.gz, NEURAL_14k_noGRB_significant_EPs, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/54/65433ffc2328c2dec9fe2a5be9431c/celso_NEURAL_14k_noGRB_significant_EPs_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/54/65433ffc2328c2dec9fe2a5be9431c/celso_NEURAL_14k_noGRB_significant_EPs_PGC__noclump_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/54/65433ffc2328c2dec9fe2a5be9431c/celso_PGC_clumped_SNPs.clumped]
-    // // // [celso, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/80/8446a04f70e95bc51c4e693a56856b/celso_GWAS_QC.gz, sig_ES_sig_contact_EPs_in_Neural_22k_100flank_noInternalOverlap, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/80/8446a04f70e95bc51c4e693a56856b/celso_sig_ES_sig_contact_EPs_in_Neural_22k_100flank_noInternalOverlap_PGC__noclump_TS_ENH_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/80/8446a04f70e95bc51c4e693a56856b/celso_sig_ES_sig_contact_EPs_in_Neural_22k_100flank_noInternalOverlap_PGC__noclump_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/80/8446a04f70e95bc51c4e693a56856b/celso_PGC_clumped_SNPs.clumped]
-
+    //[xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_GWAS_QC_noclump.gz, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_ADD_Neural_significant_enh_noclump_EPWAS.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_ADD_Neural_significant_enh_PGC__noclump_residual_GWAS_compartment.tsv.gz, ADD, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bed, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bim, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.fam]
     
 
-    // R_split_lists (
-    //     // first annotate SNPs with ES of relevant E-P - for ENH SNP list
-    //     // ##################################################### GENERATE MODIFIED ORS MULT BY ES OR EXP       ###########################################################
-    //     // output separate lists to calculate split PRSs and also merged one
-    //     PLINK_clump.out.clumped_SNPs_and_noclump_lists.map { [it, "1"].flatten() }, //######################## multiplier can be set here ########################
-    //     Channel.fromPath( "./input/ES_multipliers/2023-01-18_NEURAL_ENH_EXP_significant_ES_significant_contact_EPs_gene_brain_exp_plus_100_noOverlap.csv.gz", checkIfExists: true)
-    // )
+
+    PLINK_clump (
+        //CLUMPING of enhancer-based SNP compartments together 
+        R_prepare_lists_for_clump.out.lists_before_clump
+            .combine(LD_reference)
+    )
+    PLINK_clump.out.clumped_SNPs_and_noclump_lists
+        .view()
 
 
-    // R_split_lists.out.partitioned
-    //     .combine(PLINK_PRODUCE_QC_DATASET.out.target_QC, by: [0,0])//[celso, celso_QC.bed, celso_QC.bim, celso_QC.fam]
-    //     .combine(validation_samples, by: [0,0])
-    //     .combine(LD_reference)
-    //     .combine(R_PRS_QC.out.clumped_LOO_GWAS, by: [0,0])
-    //     .map { [it, "0.5"].flatten() }         // ######################## SET CT THRESHOLD FOR PRSICE ##################
-    //     .set{combined_splitlists_bedfile_QCeddata_LDdata_05}
-    // R_split_lists.out.partitioned
-    //     .combine(PLINK_PRODUCE_QC_DATASET.out.target_QC, by: [0,0])//[celso, celso_QC.bed, celso_QC.bim, celso_QC.fam]
-    //     .combine(validation_samples, by: [0,0])
-    //     .combine(LD_reference)
-    //     .combine(R_PRS_QC.out.clumped_LOO_GWAS, by: [0,0])
-    //     .map { [it, "0.05"].flatten() }         // ######################## SET CT THRESHOLD FOR PRSICE ##################
-    //     .set{combined_splitlists_bedfile_QCeddata_LDdata_005}
-    // combined_splitlists_bedfile_QCeddata_LDdata = combined_splitlists_bedfile_QCeddata_LDdata_05.mix(combined_splitlists_bedfile_QCeddata_LDdata_005)
+    R_split_lists (
+        // first annotate SNPs with ES of relevant E-P - for ENH SNP list
+        // ##################################################### GENERATE MODIFIED ORS MULT BY ES OR EXP       ###########################################################
+        // output separate lists to calculate split PRSs and also merged one
+        PLINK_clump.out.clumped_SNPs_and_noclump_lists.map { [it, "1"].flatten() }, //######################## multiplier can be set here ########################
+        Channel.fromPath( "./input/ES_multipliers/2023-01-18_NEURAL_ENH_EXP_significant_ES_significant_contact_EPs_gene_brain_exp_plus_100_noOverlap.csv.gz", checkIfExists: true)
+    )
+
+
+    R_split_lists.out.partitioned
+        .combine(PLINK_PRODUCE_QC_DATASET.out.target_QC, by: [0,0])//[celso, celso_QC.bed, celso_QC.bim, celso_QC.fam]
+        .combine(validation_samples, by: [0,0])
+        .combine(LD_reference)
+        .combine(R_PRS_QC.out.clumped_LOO_GWAS, by: [0,0])
+        .map { [it, "0.5"].flatten() }         // ######################## SET CT THRESHOLD FOR PRSICE ##################
+        .set{combined_splitlists_bedfile_QCeddata_LDdata_05}
+    R_split_lists.out.partitioned
+        .combine(PLINK_PRODUCE_QC_DATASET.out.target_QC, by: [0,0])//[celso, celso_QC.bed, celso_QC.bim, celso_QC.fam]
+        .combine(validation_samples, by: [0,0])
+        .combine(LD_reference)
+        .combine(R_PRS_QC.out.clumped_LOO_GWAS, by: [0,0])
+        .map { [it, "0.05"].flatten() }         // ######################## SET CT THRESHOLD FOR PRSICE ##################
+        .set{combined_splitlists_bedfile_QCeddata_LDdata_005}
+    combined_splitlists_bedfile_QCeddata_LDdata = combined_splitlists_bedfile_QCeddata_LDdata_05.mix(combined_splitlists_bedfile_QCeddata_LDdata_005)
     
-    // // combined_splitlists_bedfile_QCeddata_LDdata.first().view()
-    // // [xclo3, 18k_PsychENCODE_PFCortex, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9b/d351570b0db72f3534dfedfe5020bc/xclo3_18k_PsychENCODE_PFCortex_clumped_TS_ENH_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9b/d351570b0db72f3534dfedfe5020bc/xclo3_18k_PsychENCODE_PFCortex_clumped_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9b/d351570b0db72f3534dfedfe5020bc/xclo3_18k_PsychENCODE_PFCortex_clumped_merged_GWAS.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/5e/53ff2c688bdf17a3facfe140ae21ee/xclo3_QC.bed, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/5e/53ff2c688bdf17a3facfe140ae21ee/xclo3_QC.bim, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/5e/53ff2c688bdf17a3facfe140ae21ee/xclo3_QC.fam, /home/osimoe/PGC_w3_data/xclo3, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bed, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bim, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.fam, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c3/22b22bc4e55f5d3b80c64a6e7d9827/xclo3_clumped_LOO_GWAS.tsv.gz, 0.05]
+    combined_splitlists_bedfile_QCeddata_LDdata.first().view()
+    
     
     // PRSice_calculate_PRS_split_partitions(
     //     combined_splitlists_bedfile_QCeddata_LDdata
