@@ -1,0 +1,7 @@
+example_data_structure/
+results/
+workflows/.*
+work/
+.DS_Store
+.nextflow/
+.next*
