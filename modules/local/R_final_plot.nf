@@ -38,7 +38,7 @@ process R_final_plot {
         ${residual_GWAS_compartment_summary} ${residual_GWAS_compartment_best}\
         ${EPWAS_originalOR_prsice} ${EPWAS_OR_by_measure1_prsice} ${EPWAS_OR_by_measure2_prsice} ${residual_GWAS_compartment_prsice}   \
         ${original_GWAS_summary} ${original_GWAS_prsice} ${original_GWAS_best}\
-        ${modif_name_1} ${modif_name_2} ${CTthreshold} ${ENHlist_thresh_model} 
+        ${modif_name_1} ${modif_name_2} ${CTthreshold} "SCZ" ${ENHlist_thresh_model} 
     """
 }
     
