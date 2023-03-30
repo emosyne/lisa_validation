@@ -20,7 +20,7 @@ process R_final_plot {
         path(EPWAS_originalOR_prsice), path(EPWAS_OR_by_measure1_prsice), path(EPWAS_OR_by_measure2_prsice),  \
         path(EPWAS_originalOR_best), path(EPWAS_OR_by_measure1_best), path(EPWAS_OR_by_measure2_best),  \
         path(residual_GWAS_compartment_summary), path(residual_GWAS_compartment_prsice), path (residual_GWAS_compartment_best), \
-        path(original_LOO_GWAS_summary), path(original_LOO_GWAS_prsice), path (original_LOO_GWAS_best),\
+        path(original_GWAS_summary), path(original_GWAS_prsice), path (original_GWAS_best),\
         val(ENH_list), val(CTthreshold), path(cohort_fam),\
         val(EPWAS_model), val(modif_name_1),val(modif_name_2)
 
