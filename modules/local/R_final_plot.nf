@@ -2,7 +2,7 @@ process R_final_plot {
     // debug true
     container 'emosyne/r_docker:1.97'
     label 'process_high'
-    tag "$cohort_ENHpart"
+    tag "${ENHlist_thresh_model}"
     cache "lenient"
     // errorStrategy 'ignore'
 
@@ -15,7 +15,7 @@ process R_final_plot {
         // xs234_Neural_significant_enh_0.5_ADD_clumped_LOO_GWAS.summary, xs234_Neural_significant_enh_0.5_ADD_clumped_LOO_GWAS.prsice, xs234_Neural_significant_enh_0.5_ADD_clumped_LOO_GWAS.best, 
         // Neural_significant_enh, 0.5, xs234_QC.fam, 
         // ADD, enh_ES, enh_TS_tpm]
-    tuple val(cohort_ENHpart), \
+    tuple val(ENHlist_thresh_model), \
         path(EPWAS_originalOR_summary), path(EPWAS_OR_by_measure1_summary), path(EPWAS_OR_by_measure2_summary),  \
         path(EPWAS_originalOR_prsice), path(EPWAS_OR_by_measure1_prsice), path(EPWAS_OR_by_measure2_prsice),  \
         path(EPWAS_originalOR_best), path(EPWAS_OR_by_measure1_best), path(EPWAS_OR_by_measure2_best),  \
@@ -38,7 +38,7 @@ process R_final_plot {
         ${residual_GWAS_compartment_summary} ${residual_GWAS_compartment_best}\
         ${EPWAS_originalOR_prsice} ${EPWAS_OR_by_measure1_prsice} ${EPWAS_OR_by_measure2_prsice} ${residual_GWAS_compartment_prsice}   \
         ${original_GWAS_summary} ${original_GWAS_prsice} ${original_GWAS_best}\
-        ${modif_name_1} ${modif_name_2} ${CTthreshold} ${condition} ${ENHlist_thresh_model} 
+        ${modif_name_1} ${modif_name_2} ${CTthreshold} ${ENHlist_thresh_model} 
     """
 }
     

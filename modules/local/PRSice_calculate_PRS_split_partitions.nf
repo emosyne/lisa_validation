@@ -1,6 +1,6 @@
 process PRSice_calculate_PRS_split_partitions {
     // debug true
-    tag "${ENH_list}_${CTthreshold}_${EPWAS_model}"
+    tag "${cohort}_${ENH_list}_${CTthreshold}_${EPWAS_model}"
     label 'process_high'
     // label 'process_high_memory'
     // clusterOptions "--partition=shared_52c_384g"
@@ -26,9 +26,9 @@ process PRSice_calculate_PRS_split_partitions {
         path(clumped_LOO_GWAS), val(CTthreshold)
     
     output:
-    tuple val("${cohort}_${ENH_list}_${EPWAS_model}"), path("*_clumped_EPWAS_*.summary"), path("*_clumped_EPWAS_*.prsice"), path("*_clumped_EPWAS_*.best"),          emit: clumped_EPWAS_PRS
-    tuple val("${cohort}_${ENH_list}_${EPWAS_model}"), path("*_clumped_residual_GWAS_compartment.summary"), path("*_clumped_residual_GWAS_compartment.prsice"), path("*_clumped_residual_GWAS_compartment.best"),          emit: clumped_residual_GWAS_compartment_PRS
-    tuple val("${cohort}_${ENH_list}_${EPWAS_model}"), path("*_clumped_LOO_GWAS.summary"), path("*_clumped_LOO_GWAS.prsice"), path("*_clumped_LOO_GWAS.best"), \
+    tuple val("${cohort}_${ENH_list}_${CTthreshold}_${EPWAS_model}"), path("*_clumped_EPWAS_*.summary"), path("*_clumped_EPWAS_*.prsice"), path("*_clumped_EPWAS_*.best"),          emit: clumped_EPWAS_PRS
+    tuple val("${cohort}_${ENH_list}_${CTthreshold}_${EPWAS_model}"), path("*_clumped_residual_GWAS_compartment.summary"), path("*_clumped_residual_GWAS_compartment.prsice"), path("*_clumped_residual_GWAS_compartment.best"),          emit: clumped_residual_GWAS_compartment_PRS
+    tuple val("${cohort}_${ENH_list}_${CTthreshold}_${EPWAS_model}"), path("*_clumped_LOO_GWAS.summary"), path("*_clumped_LOO_GWAS.prsice"), path("*_clumped_LOO_GWAS.best"), \
         val(ENH_list), val(CTthreshold),  path(cohort_fam_QC), val(EPWAS_model),                                         emit: clumped_original_LOO_GWAS_PRS
     tuple  path("*.png"), path("*.txt"), path("*.log") //figures, quantiles text and log
 
