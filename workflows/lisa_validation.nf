@@ -54,12 +54,6 @@ LD_reference = Channel.from("bed","bim","fam")
     .map { ext -> [file("/home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.${ext}")] }
             .collect()
 
-// UKBB_associations = Channel
-//     .fromPath("input/UKBB_res/REC_ALL_BRAIN_EPs_UKBB_eur_associations_GWAMA_format")
-//     // .fromPath( ["./input/UKBB_res/SCZ_ORs_PLINK2_logistic_firth_fallback_covar_recessive.PHENO1.glm.logistic.hybrid",
-//                 // "./input/UKBB_res/SCZ_ORs_PLINK2_logistic_firth_fallback_covar_recessive.frq"])
-//     // .collect()
-//     // .map{ it -> ["UKBB_eur" , it[0], it[1]] }
 
 
 
