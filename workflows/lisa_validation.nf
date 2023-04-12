@@ -6,7 +6,7 @@ include { R_prepare_lists_for_clump }   from '../modules/local/R_prepare_lists_f
 include {PLINK_clump}                   from '../modules/local/PLINK_clump_mod.nf'
 include {R_split_lists}                 from '../modules/local/R_split_lists.nf'
 include {PRSice_calculate_PRS_split_partitions} from '../modules/local/PRSice_calculate_PRS_split_partitions.nf'
-include {R_final_plot}from '../modules/local/R_final_plot.nf'
+include {R_final_plot}                  from '../modules/local/R_final_plot.nf'
 
 
 test_sample_list = ["xs234"]//"celso""xirwt","xgras","xjrsa","gawli","mcqul","xclm2","xclo3","gpc2a","xboco","xswe5","xswe6","clz2a",
@@ -116,9 +116,7 @@ workflow lisa_validation {
         .set{cohort_GWAS_enh_list}
     
     // cohort_GWAS_enh_list.view()
-    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, REC, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_REC.tsv.gz]
-    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, DOM, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_DOM.tsv.gz]
-    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/eb/bf5a481c98a166618d6e8992707e29/xs234_GWAS_QC_noclump.gz, /home/osimoe/PGC_w3_data/xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/enh_bedfiles/Neural_significant_enh.bed, ADD, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/input/EPWAS/UKBB_ENH_associations_ADD.tsv.gz]
+
     
     // BASE subsetting
     R_prepare_lists_for_clump (
@@ -130,9 +128,7 @@ workflow lisa_validation {
     
     // R_prepare_lists_for_clump.out.lists_before_clump
     //     .combine(LD_reference)
-    //     .view()
-    //[xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_GWAS_QC_noclump.gz, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_ADD_Neural_significant_enh_noclump_EPWAS.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/89/8273f2d2f382c01705a651962e631a/xs234_ADD_Neural_significant_enh_PGC__noclump_residual_GWAS_compartment.tsv.gz, ADD, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bed, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bim, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.fam]
-    
+    //     .view()    
 
 
     PLINK_clump (
@@ -142,7 +138,6 @@ workflow lisa_validation {
     )
     // PLINK_clump.out.clumped_SNPs_and_noclump_lists
     //     .view()
-    // [xs234, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_GWAS_QC_noclump.gz, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_DOM_Neural_significant_enh_noclump_EPWAS.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_DOM_Neural_significant_enh_PGC__noclump_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/c1/49567b9d1a2edef69a0d830b08f207/xs234_Neural_significant_enh_PGC_clumped_SNPs.clumped, DOM]
 
 
     R_split_lists (
@@ -150,7 +145,7 @@ workflow lisa_validation {
         // ##################################################### GENERATE MODIFIED ORS MULT BY ES OR EXP       ###########################################################
         // output separate lists to calculate split PRSs and also merged one
         PLINK_clump.out.clumped_SNPs_and_noclump_lists.map { [it, "1"].flatten() }, //######################## multiplier can be set here ########################
-        Channel.fromPath( "./input/ES_multipliers/2023-01-18_NEURAL_ENH_EXP_significant_ES_significant_contact_EPs_gene_brain_exp_plus_100_noOverlap.csv.gz", checkIfExists: true)
+        Channel.fromPath( "../private_input_files/ES_multipliers/2023-01-18_NEURAL_ENH_EXP_significant_ES_significant_contact_EPs_gene_brain_exp_plus_100_noOverlap.csv.gz", checkIfExists: true)
     )
 
 
@@ -171,7 +166,7 @@ workflow lisa_validation {
     combined_splitlists_bedfile_QCeddata_LDdata = combined_splitlists_bedfile_QCeddata_LDdata_05.mix(combined_splitlists_bedfile_QCeddata_LDdata_005)
     
     // combined_splitlists_bedfile_QCeddata_LDdata.first().view()
-    //[xs234, Neural_significant_enh, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/92/d780742c0102176ce13dba791a23d0/xs234_Neural_significant_enh_X_1_clumped_TS_ENH_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/92/d780742c0102176ce13dba791a23d0/xs234_Neural_significant_enh_clumped_residual_GWAS_compartment.tsv.gz, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/92/d780742c0102176ce13dba791a23d0/xs234_Neural_significant_enh_clumped_merged_GWAS.tsv.gz, 1, REC, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/6e/9d81101a7f908202c2ac9926bbf699/xs234_QC.bed, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/6e/9d81101a7f908202c2ac9926bbf699/xs234_QC.bim, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/6e/9d81101a7f908202c2ac9926bbf699/xs234_QC.fam, /home/osimoe/PGC_w3_data/xs234, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bed, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.bim, /home/osimoe/project/LD_ref/EUR_phase3_autosomes_hg19.fam, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/b1/acb6fd8d77b567de90b1368eaa7879/xs234_clumped_LOO_GWAS.tsv.gz, 0.05]
+
 
     PRSice_calculate_PRS_split_partitions(
         combined_splitlists_bedfile_QCeddata_LDdata
@@ -186,7 +181,7 @@ workflow lisa_validation {
 
 
     // PRS_results.view()
-    // [xs234_Neural_significant_enh_ADD, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_EPWAS_originalOR.summary, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_mult_1_clumped_EPWAS_OR_by_measure1.summary, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_mult_1_clumped_EPWAS_OR_by_measure2.summary, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_EPWAS_originalOR.prsice, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_mult_1_clumped_EPWAS_OR_by_measure1.prsice, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_mult_1_clumped_EPWAS_OR_by_measure2.prsice, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_EPWAS_originalOR.best, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_mult_1_clumped_EPWAS_OR_by_measure1.best, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_mult_1_clumped_EPWAS_OR_by_measure2.best, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_residual_GWAS_compartment.summary, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_residual_GWAS_compartment.prsice, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_residual_GWAS_compartment.best, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_LOO_GWAS.summary, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_LOO_GWAS.prsice, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_Neural_significant_enh_0.5_ADD_clumped_LOO_GWAS.best, Neural_significant_enh, 0.5, /project/osimoe/.nextflow/assets/emosyne/lisa_validation/work/9e/1e422895cc7dfc4e39f780c00f1f14/xs234_QC.fam, ADD, enh_ES, enh_TS_tpm]
+
 
     R_final_plot (
         PRS_results
